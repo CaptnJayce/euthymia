@@ -1,8 +1,9 @@
 #include "../headers/tick.hpp"
 #include "../headers/rng.hpp"
+#include "../headers/params.hpp"
 #include <iostream>
 
-TICK::TICK(int ticksPerSecond) : tps(ticksPerSecond) {}
+TICK::TICK(const PARAMS& params) : tps(params.ticksPerSecond) {}
 
 int TICK::progressTick(RNG& rng) {
     for(int i = 0; i < tps; i++) {

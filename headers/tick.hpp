@@ -1,9 +1,11 @@
 #pragma once
-#include "rng.hpp"
+#include "params.hpp"
+
+class RNG;
 
 class TICK {
 public:
-    TICK(int ticksPerSecond);
+    TICK(const PARAMS& params);
     int progressTick(RNG& rng);    
 
 private:
