@@ -13,6 +13,7 @@ public:
     int checkEntityCount();
     int spawnEntity(RNG& rng);
     int removeEntity(std::string entitiyName, int entityId);
+    float totalWeight = 0.0f;
 
     std::vector<ENEMY_DEF> spawnTable;
 private:

@@ -27,6 +27,9 @@ int main() {
     core.spawnTable.push_back(inter);
     core.spawnTable.push_back(rarer);
 
+    core.totalWeight = rng.sumWeights(core.spawnTable);
+    std::cout << "Total spawn weight: " << core.totalWeight << "\n" << std::endl;
+
     for(int i = 0; i < params.totalLevels; i++) {
         std::cout << i << std::endl;
 

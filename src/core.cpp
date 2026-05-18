@@ -3,7 +3,7 @@
 #include <iostream>
 
 CORE::CORE(PARAMS& params) : params(params), totalEntities(0), maxEntitiesReached(false) {
-    this->params.maxEntities = 10;
+    this->params.maxEntities = 1000;
 }
 
 int CORE::checkEntityCount() {
@@ -18,12 +18,15 @@ int CORE::spawnEntity(RNG& rng) {
     checkEntityCount();
 
     if (!maxEntitiesReached) {
-        float x = rng.rollFloat();
-        if (x < 0.5f) {
-            std::cout << "Spawned entity: Basic Barry. Total entities: " << totalEntities + 1 << "\n" << std::endl;
-            totalEntities++;
-        } else {
-            std::cout << "Spawned nothing. Total entities: " << totalEntities << "\n" << std::endl;
+        float roll = rng.rollFloat() * totalWeight;
+
+        for (const auto& enemy : spawnTable) {
+            if (roll < enemy.spawnChance) {
+                totalEntities++;
+                std::cout << "Spawned entity: " << enemy.name << ". Total entities: " << totalEntities << "\n" << std::endl;
+                break;
+            }
+            roll -= enemy.spawnChance;
         }
     } else {
         std::cout << "Cannot spawn entity, max entities reached.\n" << std::endl;
