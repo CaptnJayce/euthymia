@@ -1,15 +1,21 @@
 #pragma once
+#include "entity.hpp"
 #include "params.hpp"
+#include "rng.hpp"
 #include <string>
+#include <vector>
 
 class CORE{
 public:
     CORE(PARAMS& params);
+
+    // entity handling
+    int checkEntityCount();
+    int spawnEntity(RNG& rng);
+    int removeEntity(std::string entitiyName, int entityId);
+
+    std::vector<ENEMY_DEF> spawnTable;
 private:
-// entity handling
-int checkEntityCount();
-int spawnEntity(std::string entityName, int EntityId);
-int removeEntity(std::string entitiyName, int entityId);
 
 // drop handling 
 float spawnDrop(std::string dropName, int dropId);
