@@ -31,7 +31,7 @@ int main() {
     std::cout << "Total spawn weight: " << core.totalWeight << "\n" << std::endl;
 
     for(int i = 0; i < params.totalLevels; i++) {
-        std::cout << i << std::endl;
+        std::cout << "Current iteration: " << i << std::endl;
 
         TICK tick(params);
         tick.progressTick(rng, core);

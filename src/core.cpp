@@ -23,7 +23,13 @@ int CORE::spawnEntity(RNG& rng) {
         for (const auto& enemy : spawnTable) {
             if (roll < enemy.spawnChance) {
                 totalEntities++;
-                std::cout << "Spawned entity: " << enemy.name << ". Total entities: " << totalEntities << "\n" << std::endl;
+                activeEntities[enemy.name]++;
+                std::cout << "Spawned entity: " << enemy.name << std::endl;
+                std::cout << "Total entities: " << totalEntities << "\n" << std::endl;
+                for (const auto& [key, val] : activeEntities) {
+                    std::cout << "  [" << key << "]: " << val << "\n";
+                }
+                std::cout << std::endl;
                 break;
             }
             roll -= enemy.spawnChance;
@@ -34,11 +40,14 @@ int CORE::spawnEntity(RNG& rng) {
     return 0;
 }
 
-int CORE::removeEntity(std::string entitiyName, int entityId) {
+int CORE::removeEntity(std::string entityName) {
     if (totalEntities > 0) {
         totalEntities--;
         maxEntitiesReached = false;
-        std::cout << "Removed entity: " << entitiyName << " with ID: " << entityId << ". Total entities: " << totalEntities << "\n" << std::endl;
+        if (--activeEntities[entityName] <= 0) {
+            activeEntities.erase(entityName);
+        }
+        std::cout << "Removed entity: " << entityName << ". Total entities: " << totalEntities << "\n" << std::endl;
     } else {
         std::cout << "No entities to remove.\n" << std::endl;
     }

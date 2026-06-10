@@ -4,6 +4,7 @@
 #include "rng.hpp"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class CORE{
 public:
@@ -12,7 +13,7 @@ public:
     // entity handling
     int checkEntityCount();
     int spawnEntity(RNG& rng);
-    int removeEntity(std::string entitiyName, int entityId);
+    int removeEntity(std::string entityName);
     float totalWeight = 0.0f;
 
     std::vector<ENEMY_DEF> spawnTable;
@@ -33,6 +34,8 @@ bool stopProcess(std::string processName, int processId);
 
 int totalEntities;
 bool maxEntitiesReached;
+
+std::unordered_map<std::string, int> activeEntities;
 
 PARAMS& params;
 };
