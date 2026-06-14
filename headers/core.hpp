@@ -3,39 +3,40 @@
 #include "params.hpp"
 #include "rng.hpp"
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
-class CORE{
+class CORE {
 public:
-    CORE(PARAMS& params);
+  CORE(PARAMS &params);
 
-    // entity handling
-    int checkEntityCount();
-    int spawnEntity(RNG& rng);
-    int removeEntity(std::string entityName);
-    float totalWeight = 0.0f;
+  // entity handling
+  int checkEntityCount();
+  int spawnEntity(RNG &rng);
+  float removeEntity(std::string entityName);
+  void clearAllEntities();
+  float totalWeight = 0.0f;
 
-    std::vector<ENEMY_DEF> spawnTable;
+  std::vector<ENEMY_DEF> spawnTable;
+
 private:
+  // drop handling
+  float spawnDrop(std::string dropName, int dropId);
+  float removeDrop(std::string dropName, int dropId);
 
-// drop handling 
-float spawnDrop(std::string dropName, int dropId);
-float removeDrop(std::string dropName, int dropId);
+  // level handling
+  bool loadLevel(std::string levelName, int levelId);
+  bool unloadLevel(std::string levelName, int levelId);
 
-// level handling
-bool loadLevel(std::string levelName, int levelId);
-bool unloadLevel(std::string levelName, int levelId);
+  // process handling
+  bool isProcessRunning(std::string processName, int processId);
+  bool startProcess(std::string processName, int processId);
+  bool stopProcess(std::string processName, int processId);
 
-// process handling
-bool isProcessRunning(std::string processName, int processId);
-bool startProcess(std::string processName, int processId);
-bool stopProcess(std::string processName, int processId);
+  int totalEntities;
+  bool maxEntitiesReached;
 
-int totalEntities;
-bool maxEntitiesReached;
+  std::unordered_map<std::string, int> activeEntities;
 
-std::unordered_map<std::string, int> activeEntities;
-
-PARAMS& params;
+  PARAMS &params;
 };
